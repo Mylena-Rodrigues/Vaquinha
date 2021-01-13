@@ -57,9 +57,18 @@ namespace Vaquinha.AutomatedUITests
 			IWebElement webElement = null;
 			webElement = _driver.FindElement(By.ClassName("btn-yellow"));
 			webElement.Click();
-
+			/* PREENCHER UM POR UM
+			//Exemplo: DADOS PESSOAIS
+			IWebElement campoNome = driver.FindElement(By.Id("DadosPessoais_Nome")); 
+			campoNome.SendKeys(doacao.DadosPessoas.Nome);
+			IWebElement campoNome = driver.FindElement(By.Id("DadosPessoais_Email")); 
+			campoNome.SendKeys(doacao.DadosPessoas.Email);
+			IWebElement campoNome = driver.FindElement(By.Id("DadosPessoais_MensagemApoio")); 
+			campoNome.SendKeys(doacao.DadosPessoais.MensagemApoio);
+			*/
+			
 			//Assert
-			_driver.Url.Should().Contain("/Doacoes/Create");
+			_driver.Url.Should().Contain("/Doadores");
 		}
 	}
 }

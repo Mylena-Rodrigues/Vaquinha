@@ -20,9 +20,9 @@ namespace Vaquinha.Unit.Tests.DomainTests
             _cartaoCreditoFixture = cartaoCreditoFixture;
         }
 
-        [Fact]
-        [Trait("Doacao", "Doacao_CorretamentePreenchidos_DoacaoValida")]
-        public void Doacao_CorretamentePreenchidos_DoacaoValida()
+        [Fact] //Quando se coloca o Fact é um caso de teste, é um fato
+        [Trait("Doacao", "Doacao_CorretamentePreenchidos_DoacaoValida")]//Organizar os testes
+        public void Doacao_CorretamentePreenchidos_DoacaoValida() //Tentativa de fluxo principal
         {           
             // Arrange
             var doacao = _doacaoFixture.DoacaoValida();
@@ -32,9 +32,24 @@ namespace Vaquinha.Unit.Tests.DomainTests
             // Act
             var valido = doacao.Valido();
 
-            // Assert
+            // Assert       
             valido.Should().BeTrue(because: "os campos foram preenchidos corretamente");
             doacao.ErrorMessages.Should().BeEmpty();
+        }
+         [Fact] //Quando se coloca o Fact é um caso de teste, é um fato
+        [Trait("Doacao", "Doacao_UsuarioAceitaPagarCorretamenteComTaxa_DoacaoValida")]//Organizar os testes
+        public void Doacao_UsuarioAceitaPagarCorretamenteComTaxa_DoacaoValida() //Tentativa de fluxo principal
+        {           
+            // Arrange
+            var doacao = _doacaoFixture.DoacaoValida(false, 5, false, true);
+            doacao.AdicionarEnderecoCobranca(_enderecoFixture.EnderecoValido());
+            doacao.AdicionarFormaPagamento(_cartaoCreditoFixture.CartaoCreditoValido());
+
+            // Act
+            var valido = doacao.Valido();
+
+            // Assert       
+            doacao.Valor.Should().BeTrue(6, because: "valor com taxa de 20%");
         }
 
         [Fact]
